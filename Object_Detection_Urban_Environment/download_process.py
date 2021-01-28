@@ -25,7 +25,38 @@ def create_tf_example(filename, encoded_jpeg, annotations):
     """
 
     # TODO: Implement function to convert the data
-
+    encoded_jpg_io = io.BytesIO(encoded_jpeg)
+    image = Image.open(encoded_jpg_io)
+    width, height = image.size
+    
+    # Mapping the id from the number of its type to an object (as shown in the label_map.pbtxt).
+    mapping = {1: 'vehicle', 2: 'pedestrian', 4: 'cyclist'}
+    image_format = b'jpg'
+    xmins = []
+    xmaxs = []
+    ymins = []
+    ymaxs = []
+    classes_text = []
+    classes = []
+    filename = filename.encode('utf8')
+    
+    # Store all the information of the bounding boxes and the clases
+    for ann in annotations:
+        # Store the dimensions of each bounding boxes
+        xmin, ymin = ann.box.center_x - 0.5 * ann.box.length, ann.box.center_y - 0.5 * ann.box.width
+        xmax, ymax = ann.box.center_x + 0.5 * ann.box.length, ann.box.center_y + 0.5 * ann.box.width
+        
+        # Normalize the dimensions of the bounding box
+        xmins.append(xmin / width)
+        xmaxs.append(xmax / width)
+        ymins.append(ymin / height)
+        ymaxs.append(ymax / height)
+        
+        # Store the classes predicted on each bounding box 
+        classes.append(ann.type)
+        classes_text.append(mapping[ann.type].encode('utf8'))
+    
+    # 
     tf_example = tf.train.Example(features=tf.train.Features(feature={
         'image/height': int64_feature(height),
         'image/width': int64_feature(width),
