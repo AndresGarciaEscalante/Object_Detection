@@ -7,6 +7,8 @@ import numpy as np
 
 from utils import get_module_logger
 
+# +
+import shutil
 
 def split(data_dir):
     """
@@ -16,8 +18,36 @@ def split(data_dir):
     args:
         - data_dir [str]: data directory, /mnt/data
     """
-    # TODO: Implement function
     
+    # TODO: Implement function
+    processed_data = os.listdir(data_dir + '/processed')
+    
+    # variables
+    num_tfrecords  = len(processed_data)
+    num_training   = num_tfrecords*0.75
+    num_validation = num_tfrecords*0.15
+    num_testing    = num_tfrecords*0.10
+    
+    #iterate through all tfrecords 
+    for i,tfrecord in enumerate(processed_data):
+        # Number of Tfrecords for training
+        if i < num_training:
+            shutil.move(data_dir+'/processed/'+tfrecord, data_dir + '/training')
+          
+        # Number of Tfrecords for validation
+        elif i >= num_training and i < num_training+num_validation:
+            shutil.move(data_dir+'/processed/'+tfrecord, data_dir + '/validation')
+         
+        # Number of Tfrecords for testing
+        else:
+            shutil.move(data_dir+'/processed/'+tfrecord, data_dir + '/testing')
+    
+    #Provice information about the splits created
+    print('The {} tfrecords were splitted as follows: Training: {} | Validation {} | Testing {}'
+          .format(num_tfrecords,num_training,num_validation,num_testing))
+
+
+# -
 
 if __name__ == "__main__": 
     parser = argparse.ArgumentParser(description='Split data into training / validation / testing')
