@@ -149,7 +149,7 @@ As seen from the above images, the mAPs (overall) of the trained model are low. 
 The following image shows the performance of the model:   
 
 <p align="center">
-  <img width= 500 src="images/No_Augmentation/No_Augmentation.png">
+  <img width= 850 src="images/No_Augmentation/No_Augmentation.png">
 </p>
 
 #### Improve on the reference
@@ -186,7 +186,7 @@ As seen from the above images, the mAPs (overall) of the trained model increased
 The following gif shows the performance of the model with augmentation: 
 
 <p align="center">
-  <img width= 500 src="images/Aumentation/Augmentation.png">
+  <img width= 850 src="images/Aumentation/augmentation.png">
 </p>
 
 ## Project Outcome
