@@ -1,9 +1,8 @@
 # Object Detection in Urban Environment
 
 <p align="center">
-  <img src="/gifs/Object_Detection.gif">
+  <img src="gifs/Object_Detection.gif">
 </p>
-
 
 ## Installation:
 1. Clone the Repository:
@@ -91,7 +90,7 @@ For this project, a convolutional neural network is used to detect and classify 
 
 ### Dataset
 #### Dataset analysis
-The waymo dataset provides us with a variety of samples with different lights, weathers, object densities, and environments. The waymo dataset also comes with the truth labels, these can be shown in the following images:
+The waymo dataset provides us with a variety of samples with different lights, weather conditions, object densities, and environments. The waymo dataset also comes with the truth labels, some examples can be shown in the following images:
 
 <p align="center">
   <img width= 500 src="images/EDA/Example_1.PNG">
@@ -102,7 +101,7 @@ The waymo dataset provides us with a variety of samples with different lights, w
 </p>
 
 
-It is importart to analyze the dataset before performing the cross validation step, for this reason we need to know the classes distribution over the entire dataset. In the project we used 100 tfrecords, and from which we found the following information:
+It is importart to analyze the dataset before performing the cross validation step, for this reason we need to know the classes distribution over the entire dataset. In the project we use 100 tfrecords, and from which we found the following information:
 
 <p align="center">
   <img width= 500 src="images/EDA/Class_Distribution.PNG">
@@ -123,59 +122,61 @@ For the Cross Validation step, it was decided to split the dataset as follows:
 * 15% of the dataset belongs to the validation set.
 * 10% of the dataset belongs to the test set.
 
-This division of the dataset is considered as a rule of thumb, but many sources also manifest that it is one of the best options to split a dataset.
+This division of the dataset is considered as in the lessons of the nano degree, but many sources also manifest that it is one of the best options to split a dataset.
 
 ### Training
 #### Reference experiment
-This section should detail the results of the reference experiment. It should includes training metrics and a detailed explanation of the algorithm's performances.
-
 This experiment was taken using the *pipeline_new.config* file, this contained predefined values of the learning rate, warmup learning rate, among others. The results of the trained model with the *pipeline_new.config* are shown bellow:
 
 <p align="center">
-  <img width= 500 src="images/No_Augmentation/1.No_Augmentation.PNG">
+  <img width= 700 src="images/No_Augmentation/1.No_Augmentation.PNG">
 </p>
 
 <p align="center">
-  <img width= 500 src="images/No_Augmentation/2.No_Augmentation.PNG">
+  <img width= 700 src="images/No_Augmentation/2.No_Augmentation.PNG">
 </p>
 
 <p align="center">
-  <img width= 500 src="images/No_Augmentation/3.No_Augmentation.PNG">
+  <img width= 700 src="images/No_Augmentation/3.No_Augmentation.PNG">
 </p>
 
 <p align="center">
-  <img width= 300 src="images/No_Augmentation/4.No_Augmentation.PNG">
+  <img width= 500 src="images/No_Augmentation/4.No_Augmentation.PNG">
 </p>
 
-As seen from the above images, the mAPs of the trained model are low, therefore, this involes not able to detect and classify the objects on the images. The following gif shows the performance of the model in a video:   
+As seen from the above images, the mAPs of the trained model are low, therefore, this involes not able to detect and classify the objects on the images. The following image shows the performance of the model:   
 
 <p align="center">
   <img width= 500 src="images/No_Augmentation/No_Augmentation.PNG">
 </p>
 
 #### Improve on the reference
-To improve the previous model, many experiments were performed in the *Explore Augmentation.ipynb* file. After several, we found out that the best augmentation techniques that helped the model's performance are: 
-
-* Adding random brightness. 
-* Adding random contrast.
-* Adding random crops in the image.
-
-Additionally, after incorporating the augmentation techniques, the training of the model presented overfitting. Therefore the the learning rate was reduced. Finally, a new file was created named *pipeline_augmentation.config*, this model presented the aforementioned augmentation techniques and had a better performance overall as shown bellow:
+To improve the previous model, many experiments were performed in the *Explore Augmentation.ipynb* file. After several experiments, we found out that the best augmentation techniques that helped the model's performance are and are shown bellow: 
 
 <p align="center">
-  <img width= 500 src="images/Aumentation/1.Augmentation.PNG">
+  <img width= 400 src="images/Testing_Augmentation/Augmentation.PNG">
+</p>
+
+* Adding random brightness (value = 0.065). 
+* Adding random contrast (value = 0.85).
+* Adding random crops in the image (value = 0.45).
+
+Additionally, after incorporating the augmentation techniques, the training of the model presented overfitting. Therefore the learning rate was reduced aproximately by a factor of 10 (value = 0.0035). Finally, a new file was created named *pipeline_augmentation.config*, this model presented the aforementioned augmentation techniques and had a better performance overall as shown bellow:
+
+<p align="center">
+  <img width= 700 src="images/Aumentation/1.Augmentation.PNG">
 </p>
 
 <p align="center">
-  <img width= 500 src="images/Aumentation/2.Augmentation.PNG">
+  <img width= 700 src="images/Aumentation/2.Augmentation.PNG">
 </p>
 
 <p align="center">
-  <img width= 500 src="images/Aumentation/3.Augmentation.PNG">
+  <img width= 700 src="images/Aumentation/3.Augmentation.PNG">
 </p>
 
 <p align="center">
-  <img width= 300 src="images/Aumentation/4.Augmentation.PNG">
+  <img width= 500 src="images/Aumentation/4.Augmentation.PNG">
 </p>
 
 The following gif shows the performance of the model with augmentation: 
@@ -188,12 +189,6 @@ The following gif shows the performance of the model with augmentation:
 The new model **achieved a better performance overall** than the previous model. Even though, the mAPs have increased from the new model, it has still some problems in detecting pedestrians and even more in cyclists. The main reason for this is the unbalanced dataset in the classes. 
 
 Finally, the comparison of the two models is shown bellow, where the *pipeline_new.config* (oldest model) is in the left side, and the *pipeline_augmentation.config* model is in the right:
-
-
-
-
-
-
 
 
 **IMPORTANT** Check the full video of the model in action [Object Detection in Urban Environment Project](https://youtu.be/7ZxXdt_zD98).
