@@ -4,11 +4,14 @@ import time
 import matplotlib.pyplot as plt
 import numpy as np
 import tensorflow as tf
+from matplotlib import animation
 
 from object_detection.builders.dataset_builder import build as build_dataset
 from object_detection.utils.config_util import get_configs_from_pipeline_file
 from object_detection.utils.label_map_util import create_category_index_from_labelmap
 from object_detection.utils import visualization_utils as viz_utils
+
+from utils import get_module_logger
 
 
 def main(labelmap_path, model_path, tf_record_path, config_path, output_path):
@@ -20,7 +23,6 @@ def main(labelmap_path, model_path, tf_record_path, config_path, output_path):
     - tf_record_path [str]: path to tf record file to visualize
     - config_path [str]: path to config file
     - output_path [str]: path to mp4 file
-
     Save the results as mp4 file
     """
     # load label map
@@ -51,13 +53,13 @@ def main(labelmap_path, model_path, tf_record_path, config_path, output_path):
     for idx, batch in enumerate(dataset):
         if idx % 50:
             logger.info(f'Step: {idx}')
-        # add new axis and feed into model 
+        # add new axis and feed into model
         input_tensor = batch['image']
         image_np = input_tensor.numpy().astype(np.uint8)
         input_tensor = input_tensor[tf.newaxis, ...]
 
         detections = detect_fn(input_tensor)
-        
+
         # tensor -> numpy arr, remove one dimensions
         num_detections = int(detections.pop('num_detections'))
         detections = {key: value[0, ...].numpy()
@@ -79,7 +81,7 @@ def main(labelmap_path, model_path, tf_record_path, config_path, output_path):
             min_score_thresh=.30,
             agnostic_mode=False)
         images.append(image_np_with_detections)
-    
+
     # now we can create the animation
     f = plt.figure()
     f.subplots_adjust(left=0, bottom=0, right=1, top=1, wspace=None, hspace=None)
@@ -90,12 +92,12 @@ def main(labelmap_path, model_path, tf_record_path, config_path, output_path):
     def animate(idx):
         image = images[idx]
         im_obj.set_data(image)
-        
+
     anim = animation.FuncAnimation(f, animate, frames=198)
     anim.save(output_path, fps=5, dpi=300)
 
 
-if __name__ == "__main__": 
+if __name__ == "__main__":
     logger = get_module_logger(__name__)
 
     parser = argparse.ArgumentParser(description='Create video')
@@ -108,12 +110,12 @@ if __name__ == "__main__":
     parser.add_argument('--config_path', required=False, type=str,
                         default='pipeline.config', 
                         help='path to the config file')
-    parser.add_argument('--output_path', required=False, type=str, 
+    parser.add_argument('--output_path', required=False, type=str,
                         default='animation.mp4', 
                         help='path of the saved file')
     args = parser.parse_args()
-    main(args.labelmap_path, 
-         args.model_path, 
-         args.tf_record_path, 
-         args.config_path, 
+    main(args.labelmap_path,
+         args.model_path,
+         args.tf_record_path,
+         args.config_path,
          args.output_path)
