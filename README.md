@@ -116,13 +116,13 @@ As shown in the diagram, the dataset is unbalanced, as there are more samples of
 
 ### Cross validation
 
-For the Cross Validation step, it was decided to split the dataset as follows:
+For the Cross Validation step, it was decided to implement the ***validation set*** approach. Therefore the dataset was splitted as follows:
 
 * 75% of the dataset belongs to the trainning set.
 * 15% of the dataset belongs to the validation set.
 * 10% of the dataset belongs to the test set.
 
-This division of the dataset is considered as in the lessons of the nano degree, but many sources also manifest that it is one of the best options to split a dataset.
+This division of the dataset is considered as in the lessons of the nano degree. 
 
 ### Training
 #### Reference experiment
@@ -141,10 +141,12 @@ This experiment was taken using the *pipeline_new.config* file, this contained p
 </p>
 
 <p align="center">
-  <img width= 500 src="images/No_Augmentation/4.No_Augmentation.PNG">
+  <img width= 350 src="images/No_Augmentation/4.No_Augmentation.PNG">
 </p>
 
-As seen from the above images, the mAPs of the trained model are low, therefore, this involes not able to detect and classify the objects on the images. The following image shows the performance of the model:   
+As seen from the above images, the mAPs (overall) of the trained model are low. Therefore, this causes a low detection and classification of the objects on the images. The training loss and the validation loss are converging, which indicates that no over fitting in the model.
+
+The following image shows the performance of the model:   
 
 <p align="center">
   <img width= 500 src="images/No_Augmentation/No_Augmentation.png">
@@ -154,7 +156,7 @@ As seen from the above images, the mAPs of the trained model are low, therefore,
 To improve the previous model, many experiments were performed in the *Explore Augmentation.ipynb* file. After several experiments, we found out that the best augmentation techniques that helped the model's performance are and are shown bellow: 
 
 <p align="center">
-  <img width= 400 src="images/Testing_Augmentation/Augmentation.png">
+  <img width= 400 src="images/Testing_Augmentation/Augmentation.PNG">
 </p>
 
 * Adding random brightness (value = 0.065). 
@@ -176,13 +178,15 @@ Additionally, after incorporating the augmentation techniques, the training of t
 </p>
 
 <p align="center">
-  <img width= 500 src="images/Aumentation/4.Augmentation.PNG">
+  <img width= 350 src="images/Aumentation/4.Augmentation.PNG">
 </p>
+
+As seen from the above images, the mAPs (overall) of the trained model increased from the previous model. Therefore, this causes a better detection and classification of the objects on the images. The training loss and the validation loss are converging, which indicates that no over fitting in the model.
 
 The following gif shows the performance of the model with augmentation: 
 
 <p align="center">
-  <img width= 500 src="images/Aumentation/Augmentation.PNG">
+  <img width= 500 src="images/Aumentation/Augmentation.png">
 </p>
 
 ## Project Outcome
