@@ -1,7 +1,7 @@
 # Object Detection in Urban Environment
 
 <p align="center">
-  <img src="gifs/Object_Detection.gif">
+  <img src="gifs/Entrance.gif">
 </p>
 
 ## Installation:
@@ -147,14 +147,14 @@ This experiment was taken using the *pipeline_new.config* file, this contained p
 As seen from the above images, the mAPs of the trained model are low, therefore, this involes not able to detect and classify the objects on the images. The following image shows the performance of the model:   
 
 <p align="center">
-  <img width= 500 src="images/No_Augmentation/No_Augmentation.PNG">
+  <img width= 500 src="images/No_Augmentation/No_Augmentation.png">
 </p>
 
 #### Improve on the reference
 To improve the previous model, many experiments were performed in the *Explore Augmentation.ipynb* file. After several experiments, we found out that the best augmentation techniques that helped the model's performance are and are shown bellow: 
 
 <p align="center">
-  <img width= 400 src="images/Testing_Augmentation/Augmentation.PNG">
+  <img width= 400 src="images/Testing_Augmentation/Augmentation.png">
 </p>
 
 * Adding random brightness (value = 0.065). 
@@ -190,5 +190,9 @@ The new model **achieved a better performance overall** than the previous model.
 
 Finally, the comparison of the two models is shown bellow, where the *pipeline_new.config* (oldest model) is in the left side, and the *pipeline_augmentation.config* model is in the right:
 
+No Augmentation            |  Augmentation
+:-------------------------:|:-------------------------:
+![](gifs/Sample_No_Augmentation_1.gif)  |  ![](gifs/Sample_Augmentation_1.gif)
+![](gifs/Sample_No_Augmentation_2.gif)  |  ![](gifs/Sample_Augmentation_2.gif)
 
-**IMPORTANT** Check the full video of the model in action [Object Detection in Urban Environment Project](https://youtu.be/7ZxXdt_zD98).
+**IMPORTANT** Check the full video of the model in action [Object Detection in Urban Environment Project](https://youtu.be/n_4KGlKk_5U).
