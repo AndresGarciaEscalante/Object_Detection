@@ -111,6 +111,7 @@ It is importart to analyze the dataset before performing the cross validation st
 * Aproximetely 77% of the dataset corresponds to the vehicles class.
 * Aproximetely 22% of the dataset corresponds to the vehicles class.
 * Aproximetely 1% of the dataset corresponds to the vehicles class.
+* Most of the recordings are from daylight.
 
 As shown in the diagram, the dataset is unbalanced, as there are more samples of vehicles than pedestrians and cyclists. This might cause a poor detection and classification of the pedestrians and even more in the cyclists.
 
@@ -122,7 +123,7 @@ For the Cross Validation step, it was decided to implement the ***validation set
 * 15% of the dataset belongs to the validation set.
 * 10% of the dataset belongs to the test set.
 
-This division of the dataset is considered as in the lessons of the nano degree. 
+This division of the dataset is considered as in the lessons of the nano degree. Before splitting the dataset, a **random shuffle** technique was considered as it is one of the straight foward techniques that increase the probability to contain all the types of classes, weather conditions, and environments in each partition of the dataset. By doing this, we can have a more generalized model.
 
 ### Training
 #### Reference experiment
@@ -144,7 +145,7 @@ This experiment was taken using the *pipeline_new.config* file, this contained p
   <img width= 350 src="images/No_Augmentation/4.No_Augmentation.PNG">
 </p>
 
-As seen from the above images, the mAPs (overall) of the trained model are low. Therefore, this causes a low detection and classification of the objects on the images. The training loss and the validation loss are converging, which indicates that no over fitting in the model.
+As seen from the above images, the mAPs (overall) of the trained model are low. Therefore, this causes a low detection and classification of the objects on the images. The training loss and the validation loss are converging to 0, which indicates that overfitting in the model.
 
 The following image shows the performance of the model:   
 
@@ -159,9 +160,10 @@ To improve the previous model, many experiments were performed in the *Explore A
   <img width= 400 src="images/Testing_Augmentation/Augmentation.PNG">
 </p>
 
-* Adding random brightness (value = 0.065). 
-* Adding random contrast (value = 0.85).
-* Adding random crops in the image (value = 0.45).
+* Adding random_black_patches (12 patches with a probabiliy of 0.45) = It makes the model more robust for object occlusion.
+* Adding random brightness (value = 0.065) = It allows the foggy and nights weather conditions (darker images) to differentiate the objects more clearly.
+* Adding random contrast (value = 0.85). It allows the foggy and nights weather conditions (darker images) to differentiate the objects more clearly.
+* Adding random crops in the image (value = 0.45) = It allows to extend the amount of data for training and makes the CNN more robust.
 
 Additionally, after incorporating the augmentation techniques, the training of the model presented overfitting. Therefore the learning rate was reduced aproximately by a factor of 10 (value = 0.0035). Finally, a new file was created named *pipeline_augmentation.config*, this model presented the aforementioned augmentation techniques and had a better performance overall as shown bellow:
 
@@ -181,7 +183,7 @@ Additionally, after incorporating the augmentation techniques, the training of t
   <img width= 350 src="images/Aumentation/4.Augmentation.PNG">
 </p>
 
-As seen from the above images, the mAPs (overall) of the trained model increased from the previous model. Therefore, this causes a better detection and classification of the objects on the images. The training loss and the validation loss are converging, which indicates that no over fitting in the model.
+As seen from the above images, the mAPs (overall) of the trained model increased from the previous model. Therefore, this causes a better detection and classification of the objects on the images. The training loss and the validation loss are converging to 0, which indicates no overfitting in the model.
 
 The following gif shows the performance of the model with augmentation: 
 

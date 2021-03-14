@@ -21,7 +21,8 @@ def split(data_dir):
     
     # TODO: Implement function
     processed_data = os.listdir(data_dir + '/processed')
-    
+    random.shuffle(processed_data)
+
     # variables
     num_tfrecords  = len(processed_data)
     num_training   = num_tfrecords*0.75
